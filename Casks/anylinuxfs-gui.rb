@@ -12,6 +12,11 @@ cask "anylinuxfs-gui" do
 
   app "anylinuxfs-gui.app"
 
+  postflight do
+    system_command "/usr/bin/xattr",
+                   args: ["-cr", "#{appdir}/anylinuxfs-gui.app"]
+  end
+
   zap trash: [
     "~/Library/Caches/com.anylinuxfs.gui",
     "~/Library/Preferences/com.anylinuxfs.gui.plist",
