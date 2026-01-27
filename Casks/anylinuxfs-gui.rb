@@ -1,6 +1,6 @@
 cask "anylinuxfs-gui" do
-  version "0.1.5"
-  sha256 "9436ea6b976b2d0d6dc8cdeb500a4e7787569dbd9c6c89a15c6352085ee9103b"
+  version "0.1.7"
+  sha256 "0e33c6325e00a986ca043f959112be6d8e6cbabde853c6d9aaad5c1561223add"
 
   url "https://github.com/fenio/anylinuxfs-gui/releases/download/v#{version}/anylinuxfs-gui_#{version}_aarch64.dmg"
   name "anylinuxfs GUI"
@@ -14,7 +14,7 @@ cask "anylinuxfs-gui" do
 
   postflight do
     system_command "/usr/bin/xattr",
-                   args: ["-cr", "#{appdir}/anylinuxfs-gui.app"]
+         args: ["-cr", "#{appdir}/anylinuxfs-gui.app"]
   end
 
   zap trash: [
