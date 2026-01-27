@@ -7,7 +7,7 @@ cask "anylinuxfs-gui" do
   desc "macOS GUI for anylinuxfs - mount Linux filesystems on macOS"
   homepage "https://github.com/fenio/anylinuxfs-gui"
 
-  depends_on formula: "anylinuxfs"
+  depends_on formula: "nohajc/anylinuxfs/anylinuxfs"
   depends_on arch: :arm64
 
   app "anylinuxfs-gui.app"
