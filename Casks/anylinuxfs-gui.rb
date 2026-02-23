@@ -11,9 +11,9 @@ cask "anylinuxfs-gui" do
 
   app "anylinuxfs-gui.app"
   preflight do
-    system_command "brew",
+    system_command "/opt/homebrew/bin/brew",
          args: ["tap", "nohajc/anylinuxfs"]
-    system_command "brew",
+    system_command "/opt/homebrew/bin/brew",
          args: ["install", "nohajc/anylinuxfs/anylinuxfs"]
   end
   postflight do
