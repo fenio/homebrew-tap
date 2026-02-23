@@ -7,11 +7,15 @@ cask "anylinuxfs-gui" do
   desc "macOS GUI for anylinuxfs - mount Linux filesystems on macOS"
   homepage "https://github.com/fenio/anylinuxfs-gui"
 
-  depends_on formula: "nohajc/anylinuxfs/anylinuxfs"
   depends_on arch: :arm64
 
   app "anylinuxfs-gui.app"
-
+  preflight do
+    system_command "brew",
+        args: ["tap", "nohajc/anylinuxfs"]
+    system_command "brew"
+        args: ["install", "nohajc/anylinuxfs/anylinuxfs"]
+  end
   postflight do
     system_command "/usr/bin/xattr",
          args: ["-cr", "#{appdir}/anylinuxfs-gui.app"]
