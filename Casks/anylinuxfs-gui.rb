@@ -1,6 +1,6 @@
 cask "anylinuxfs-gui" do
-  version "0.6.2"
-  sha256 "6a2da06cd01642b8eb101a80220bcafb5c6ad1452a72332fc1ac64b6f0392dd3"
+  version "0.6.3"
+  sha256 "e4a7a21992b610a315cd06dd4769a417fdb9a0d88dccdb29a6105be52923708a"
 
   url "https://github.com/fenio/anylinuxfs-gui/releases/download/v#{version}/anylinuxfs-gui_#{version}_aarch64.dmg"
   name "anylinuxfs GUI"
@@ -9,13 +9,15 @@ cask "anylinuxfs-gui" do
 
   depends_on arch: :arm64
 
-  app "anylinuxfs-gui.app"
   preflight do
     system_command "/opt/homebrew/bin/brew",
          args: ["tap", "nohajc/anylinuxfs"]
     system_command "/opt/homebrew/bin/brew",
          args: ["install", "nohajc/anylinuxfs/anylinuxfs"]
   end
+
+  app "anylinuxfs-gui.app"
+
   postflight do
     system_command "/usr/bin/xattr",
          args: ["-cr", "#{appdir}/anylinuxfs-gui.app"]
