@@ -12,9 +12,9 @@ cask "anylinuxfs-gui" do
   app "anylinuxfs-gui.app"
   preflight do
     system_command "brew",
-        args: ["tap", "nohajc/anylinuxfs"]
-    system_command "brew"
-        args: ["install", "nohajc/anylinuxfs/anylinuxfs"]
+         args: ["tap", "nohajc/anylinuxfs"]
+    system_command "brew",
+         args: ["install", "nohajc/anylinuxfs/anylinuxfs"]
   end
   postflight do
     system_command "/usr/bin/xattr",
