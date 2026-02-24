@@ -1,18 +1,18 @@
 cask "furman" do
-  version "0.1.0"
+  version "0.1.1"
 
   on_arm do
-    sha256 "e4e3fef7e515080fc541c057c0271aa1f730e90986c43d1b7047059f61fde9af"
+    sha256 "24d4213067ad8bc448a01e37f300c1275db60fe656cbd89badf9f77ff253f776"
     url "https://github.com/fenio/furman/releases/download/v#{version}/Furman_#{version}_aarch64.dmg"
   end
 
   on_intel do
-    sha256 "e2fcf6e20dfbcee22530a6dd89fbddf452679833a85a3989dff7515f741cd096"
+    sha256 "8e88b568a1dfb2ab3746bece7e26a54fe6a05269f41756c013f3a4ee9d037785"
     url "https://github.com/fenio/furman/releases/download/v#{version}/Furman_#{version}_x64.dmg"
   end
 
   name "Furman"
-  desc "Dual-panel file manager for macOS"
+  desc "Dual-pane file manager for macOS"
   homepage "https://github.com/fenio/furman"
 
   app "Furman.app"
