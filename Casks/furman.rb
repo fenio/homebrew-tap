@@ -2,12 +2,12 @@ cask "furman" do
   version "0.2.0"
 
   on_arm do
-    sha256 "76b0b390cb5574f22136de39a7a5bb8d8f19d34732ce70a0878b97f9e00562a5"
+    sha256 "85f18fbf58f27976314cfce5c342abd7969841e609e445ea5075a26365212467"
     url "https://github.com/fenio/furman/releases/download/v#{version}/Furman_#{version}_aarch64.dmg"
   end
 
   on_intel do
-    sha256 "8c3c27073aadfd1fee91d3f28567a8c97a83c13f532197cdb0a6df76b374d016"
+    sha256 "ac4a6bf638ad55a71c446f16f3cb00e7f52f418f11c759fdce8a2646b0742372"
     url "https://github.com/fenio/furman/releases/download/v#{version}/Furman_#{version}_x64.dmg"
   end
 
@@ -23,7 +23,7 @@ cask "furman" do
   end
 
   zap trash: [
-    "~/Library/Caches/com.furman.app",
-    "~/Library/Preferences/com.furman.app.plist",
+    "~/Library/Caches/com.furman.filemanager",
+    "~/Library/Preferences/com.furman.filemanager.plist",
   ]
 end
