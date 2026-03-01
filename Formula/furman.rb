@@ -7,7 +7,7 @@ class Furman < Formula
   depends_on :linux
 
   url "https://github.com/fenio/furman/releases/download/v#{version}/Furman_#{version}_amd64.AppImage"
-  sha256 "272462edfa4507e64c0c0393fdc9267e4852cfa79d9cf32f4541659986e596fc"
+  sha256 "e19417657ab4f8615fa485e27e549bf4f5b70bd7d3a047030a3fd2d301267b6d"
 
   def install
     bin.install "Furman_#{version}_amd64.AppImage" => "furman"
