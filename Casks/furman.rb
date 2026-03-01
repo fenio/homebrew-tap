@@ -1,13 +1,13 @@
 cask "furman" do
-  version "0.2.0"
+  version "0.2.1"
 
   on_arm do
-    sha256 "e536fb4b5161106208c40c6762e494fcb28a11d9d3a73e4618f291905b3f8ada"
+    sha256 "ff47dd9c224a3fdd0cfacdae67b0bfc521a6960482412586d35eea778c354dc1"
     url "https://github.com/fenio/furman/releases/download/v#{version}/Furman_#{version}_aarch64.dmg"
   end
 
   on_intel do
-    sha256 "4065cdfe3703101efa58f673b04b6c86ad578d2479b2ff39205a136065716478"
+    sha256 "6e83a1baeeb67a3847d55342754c5e123f934c6d26058d1ed3460f61786bdf2e"
     url "https://github.com/fenio/furman/releases/download/v#{version}/Furman_#{version}_x64.dmg"
   end
 
