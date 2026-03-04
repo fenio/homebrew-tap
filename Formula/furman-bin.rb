@@ -1,13 +1,13 @@
 class FurmanBin < Formula
   desc "Dual-pane file manager for macOS and Linux"
   homepage "https://github.com/fenio/furman"
-  version "0.3.2"
+  version "0.3.3"
   license "GPL-3.0-only"
 
   depends_on :linux
 
   url "https://github.com/fenio/furman/releases/download/v#{version}/Furman_#{version}_amd64.AppImage"
-  sha256 "7a61ad2d9124b945e3220e4d5b27e5ce47b237e82d680837107bb75227091f1c"
+  sha256 "0d0c1bc8fe20cd33588965619cbf4ba5761a246b1a4208f53a763cf12e781038"
 
   def install
     bin.install "Furman_#{version}_amd64.AppImage" => "furman"
