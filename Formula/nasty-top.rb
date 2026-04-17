@@ -1,16 +1,16 @@
 class NastyTop < Formula
-  desc "Interactive bcachefs tuning workbench — live metrics + sysfs knobs"
+  desc "A top-like TUI for bcachefs filesystems"
   homepage "https://github.com/nasty-project/nasty-top"
-  version "0.0.1"
+  version "0.0.2"
   license "GPL-3.0-only"
 
   on_linux do
     if Hardware::CPU.arm?
-      url "https://github.com/nasty-project/nasty-top/releases/download/v0.0.1/nasty-top-aarch64-linux.tar.gz"
-      sha256 "cc3ff9cae277d90f974434112081d8259042264f4ce7ecc4d299a98f2245892d"
+      url "https://github.com/nasty-project/nasty-top/releases/download/v0.0.2/nasty-top-aarch64-linux.tar.gz"
+      sha256 "c2dcd4b318384b49c155a3e172627b0efcebd1c567844c0eb40967f058f08611"
     else
-      url "https://github.com/nasty-project/nasty-top/releases/download/v0.0.1/nasty-top-x86_64-linux.tar.gz"
-      sha256 "372963dbe38c983a461499c117401803eb4fb833dae88047e4ce21bca4d917db"
+      url "https://github.com/nasty-project/nasty-top/releases/download/v0.0.2/nasty-top-x86_64-linux.tar.gz"
+      sha256 "9a38e7a17cfc16764b3d2cc337b41fabadc606063b460767d5184ca9331260e7"
     end
   end
 
