@@ -1,16 +1,16 @@
 class NastyTop < Formula
   desc "A top-like TUI for bcachefs filesystems"
   homepage "https://github.com/nasty-project/nasty-top"
-  version "0.0.3"
+  version "0.0.4"
   license "GPL-3.0-only"
 
   on_linux do
     if Hardware::CPU.arm?
-      url "https://github.com/nasty-project/nasty-top/releases/download/v0.0.3/nasty-top-aarch64-linux.tar.gz"
-      sha256 "f46d72fac8d02489e62b88afc557c661610d32d47cab4ea27d41877c34c37b18"
+      url "https://github.com/nasty-project/nasty-top/releases/download/v0.0.4/nasty-top-aarch64-linux.tar.gz"
+      sha256 "b214be9e432b583c2e334fc6e027e2d29c16a6f4e750d1882fe15ef05e23e8f7"
     else
-      url "https://github.com/nasty-project/nasty-top/releases/download/v0.0.3/nasty-top-x86_64-linux.tar.gz"
-      sha256 "78deaeccbb6e055ab14745ada1c369ca46f0d154200e89e65ca78844b1c5ba71"
+      url "https://github.com/nasty-project/nasty-top/releases/download/v0.0.4/nasty-top-x86_64-linux.tar.gz"
+      sha256 "5db5b971be041bfeb26de90a7d4314707c148d688c52c28aa933d99bff5999d8"
     end
   end
 
