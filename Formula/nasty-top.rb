@@ -7,10 +7,10 @@ class NastyTop < Formula
   on_linux do
     if Hardware::CPU.arm?
       url "https://github.com/nasty-project/nasty-top/releases/download/v0.0.5/nasty-top-aarch64-linux.tar.gz"
-      sha256 "eba1e31613e9a2d80476f71a7c3ca54119033587eb5232529ada2f58b9e16beb"
+      sha256 "44ef35ca32d862926b4abbdafbb81075f702cec26abdc6e8027e0201d8e91fca"
     else
       url "https://github.com/nasty-project/nasty-top/releases/download/v0.0.5/nasty-top-x86_64-linux.tar.gz"
-      sha256 "f32f9fea4db38a5fd19ee2a862dfcee3fd8bd97b090a55e068adaa91dc2c5319"
+      sha256 "6777a765a10c29e451ef41a40db57622b2c411ba4ae851fb42f76c2d2aebd734"
     end
   end
 
