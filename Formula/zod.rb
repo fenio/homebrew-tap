@@ -5,6 +5,11 @@ class Zod < Formula
   sha256 "7932b094eaf035ee0bf3927095f3dd011e8964eba2177a6531ad43358ca2b892"
   license "GPL-3.0-or-later"
 
+  bottle do
+    root_url "https://github.com/fenio/homebrew-tap/releases/download/bottle-zod-0.2.1"
+    sha256 arm64_sonoma: "7628bc7129f2f829e10afcd4ce93c2f4247415d639f2d8c889252bb48ee5c55f"
+  end
+
 
 
   depends_on "cmake" => :build
