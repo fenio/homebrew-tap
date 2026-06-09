@@ -1,0 +1,83 @@
+name: bottle
+
+# Build Homebrew bottles (prebuilt binaries) for the zod formula and publish
+# them so `brew install fenio/tap/zod` downloads a binary instead of compiling.
+# Run manually after bumping the formula to a new version.
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "zod version to bottle (must match the formula, e.g. 1.0.0)"
+        required: true
+
+permissions:
+  contents: write
+
+env:
+  TAP: ${{ github.repository_owner }}/tap
+  REL: bottle-zod-${{ inputs.version }}
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create (or reuse) the bottle release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view "$REL" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 || \
+          gh release create "$REL" --repo "$GITHUB_REPOSITORY" \
+            --title "zod ${{ inputs.version }} bottles" \
+            --notes "Homebrew bottles for zod ${{ inputs.version }}."
+
+  build:
+    needs: setup
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, macos-13]   # arm64 (Sonoma) + Intel (Ventura)
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Build the bottle
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -eux
+          brew update
+          brew tap "$TAP"
+          ROOT_URL="https://github.com/${GITHUB_REPOSITORY}/releases/download/${REL}"
+          brew install --build-bottle "$TAP/zod"
+          brew bottle --json --no-rebuild --root-url="$ROOT_URL" "$TAP/zod"
+          # brew writes filenames with a double dash; the canonical name uses one
+          for f in zod--*.bottle.tar.gz; do mv "$f" "${f/--/-}"; done
+          gh release upload "$REL" zod-*.bottle.tar.gz --repo "$GITHUB_REPOSITORY" --clobber
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bottle-json-${{ matrix.os }}
+          path: "*.bottle.json"
+
+  publish:
+    needs: build
+    runs-on: macos-14
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: bottle-json-*
+          merge-multiple: true
+          path: bottles
+      - name: Merge bottle block into the formula and push
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -eux
+          brew update
+          brew tap "$TAP"
+          brew bottle --merge --write --no-commit bottles/*.bottle.json
+          TAP_DIR="$(brew --repository "$TAP")"
+          cd "$TAP_DIR"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git add Formula/zod.rb
+          git commit -m "zod ${{ inputs.version }}: add bottles"
+          git push origin HEAD:${{ github.ref_name }}
