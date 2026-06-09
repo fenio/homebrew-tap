@@ -35,7 +35,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-14, macos-13]   # arm64 (Sonoma) + Intel (Ventura)
+        # Apple Silicon only — GitHub's free Intel (macos-13) runners are
+        # scarce/deprecated and queue indefinitely. Add more arm64 macOS
+        # versions here (e.g. macos-15) for wider bottle coverage.
+        os: [macos-14]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Build the bottle
