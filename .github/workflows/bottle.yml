@@ -48,6 +48,9 @@ jobs:
           set -eux
           brew update
           brew tap "$TAP"
+          # Recent Homebrew refuses to load formulae from third-party taps until
+          # the tap is trusted; mark ours trusted (tolerant of older brew).
+          brew trust "$TAP" || brew trust --formula "$TAP/zod" || true
           ROOT_URL="https://github.com/${GITHUB_REPOSITORY}/releases/download/${REL}"
           brew install --build-bottle "$TAP/zod"
           brew bottle --json --no-rebuild --root-url="$ROOT_URL" "$TAP/zod"
@@ -75,6 +78,8 @@ jobs:
           set -eux
           brew update
           brew tap "$TAP"
+          # Trust the third-party tap so `brew bottle --merge` can load the formula.
+          brew trust "$TAP" || brew trust --formula "$TAP/zod" || true
           brew bottle --merge --write --no-commit bottles/*.bottle.json
           TAP_DIR="$(brew --repository "$TAP")"
           cd "$TAP_DIR"
