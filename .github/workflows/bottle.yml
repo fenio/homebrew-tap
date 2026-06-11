@@ -87,5 +87,12 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git add Formula/zod.rb
-          git commit -m "zod ${{ inputs.version }}: add bottles"
-          git push origin HEAD:${{ github.ref_name }}
+          # A re-run after the bottle block was already merged (e.g. by hand,
+          # or validating a workflow fix) produces no diff; don't fail on
+          # "nothing to commit".
+          if git diff --cached --quiet; then
+            echo "bottle block already up to date; nothing to push"
+          else
+            git commit -m "zod ${{ inputs.version }}: add bottles"
+            git push origin HEAD:${{ github.ref_name }}
+          fi
