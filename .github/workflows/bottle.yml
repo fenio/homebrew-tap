@@ -38,7 +38,9 @@ jobs:
         # Apple Silicon only — GitHub's free Intel (macos-13) runners are
         # scarce/deprecated and queue indefinitely. Add more arm64 macOS
         # versions here (e.g. macos-15) for wider bottle coverage.
-        os: [macos-14]
+        include:
+          - os: macos-14
+            tag: arm64_sonoma
     runs-on: ${{ matrix.os }}
     steps:
       - name: Build the bottle
@@ -46,6 +48,15 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -eux
+          # If this platform's bottle is already published, do NOT rebuild it:
+          # bottles aren't byte-reproducible, and re-uploading would invalidate
+          # the sha256 already merged into the formula (this broke 0.3.1 once).
+          ASSET="zod-${{ inputs.version }}.${{ matrix.tag }}.bottle.tar.gz"
+          if gh release view "$REL" --repo "$GITHUB_REPOSITORY" --json assets -q '.assets[].name' | grep -qx "$ASSET"; then
+            echo "$ASSET already published; skipping rebuild so its sha stays valid"
+            touch "skipped-${{ matrix.tag }}.txt"
+            exit 0
+          fi
           brew update
           brew tap "$TAP"
           # Recent Homebrew refuses to load formulae from third-party taps until
@@ -60,7 +71,9 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: bottle-json-${{ matrix.os }}
-          path: "*.bottle.json"
+          path: |
+            *.bottle.json
+            skipped-*.txt
 
   publish:
     needs: build
@@ -76,6 +89,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -eux
+          if ! ls bottles/*.bottle.json >/dev/null 2>&1; then
+            echo "no new bottles were built (assets already published); nothing to merge"
+            exit 0
+          fi
           brew update
           brew tap "$TAP"
           # Trust the third-party tap so `brew bottle --merge` can load the formula.
