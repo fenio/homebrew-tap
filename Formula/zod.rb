@@ -7,7 +7,7 @@ class Zod < Formula
 
   bottle do
     root_url "https://github.com/fenio/homebrew-tap/releases/download/bottle-zod-0.3.1"
-    sha256 arm64_sonoma: "e419269206da1a35410c544a4e19705a66edc509c565f7d1f6989c472fb8973c"
+    sha256 arm64_sonoma: "caaa410ded00772162b10fc04e88684144a8a6ebc9a3dae3b6ff4af3535c3d2c"
   end
 
   depends_on "cmake" => :build
