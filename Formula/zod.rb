@@ -1,14 +1,10 @@
 class Zod < Formula
   desc "Modernized SDL3 build of the Zod Engine (remake of the 1996 RTS 'Z')"
   homepage "https://github.com/fenio/zod"
-  url "https://github.com/fenio/zod/archive/refs/tags/v0.3.3.tar.gz"
-  sha256 "ab3f5feb8b5614caea11d70e5e809acfb98a39ea7f103aa30be9f3317bdc4ca0"
+  url "https://github.com/fenio/zod/archive/refs/tags/v0.3.4.tar.gz"
+  sha256 "c4f1edd2819286037f7feb1a7c36b6617191e62669c7043772ace61705cc072f"
   license "GPL-3.0-or-later"
 
-  bottle do
-    root_url "https://github.com/fenio/homebrew-tap/releases/download/bottle-zod-0.3.3"
-    sha256 arm64_sonoma: "9e2ddd8b90ffcfdfa1eb98ef54d7a9f9bec4106c454574714fc9939960ad2113"
-  end
 
 
   depends_on "cmake" => :build
@@ -19,7 +15,7 @@ class Zod < Formula
   depends_on "sdl3_ttf"
 
   def install
-    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    system "cmake", "-S", ".", "-B", "build", "-DZOD_VERSION=v#{version}", *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
   end
