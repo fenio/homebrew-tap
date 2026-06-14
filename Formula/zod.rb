@@ -10,6 +10,11 @@ class Zod < Formula
     sha256 arm64_sonoma: "67ae61c1e53f479ebc570552c8c6be6ef8a15f36b3fd047ef98ba4baed181e0d"
   end
 
+  bottle do
+    root_url "https://github.com/fenio/homebrew-tap/releases/download/bottle-zod-0.4.3"
+    sha256 arm64_sonoma: "67ae61c1e53f479ebc570552c8c6be6ef8a15f36b3fd047ef98ba4baed181e0d"
+  end
+
 
 
 
