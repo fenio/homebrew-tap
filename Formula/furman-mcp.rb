@@ -1,16 +1,16 @@
 class FurmanMcp < Formula
   desc "MCP server for S3 and SFTP operations (Furman)"
   homepage "https://github.com/fenio/furman"
-  version "0.3.10"
+  version "0.3.11"
   license "GPL-3.0-only"
 
   on_arm do
     url "https://github.com/fenio/furman/releases/download/v#{version}/furman-mcp-aarch64-apple-darwin"
-    sha256 "9d311c31129e0cec6b34f1364873f8f8779c3116d801c6af8dc6335a263ad203"
+    sha256 "528c769a2cbe0fc248d1b8296a2f9832a4c2f9246faf844fe92f31d1bcc12378"
   end
   on_intel do
     url "https://github.com/fenio/furman/releases/download/v#{version}/furman-mcp-x86_64-apple-darwin"
-    sha256 "44f92a4ec782c2271b15e0c2343aa52ad8f74df3a48d7cbf9e34fc1d278d5a20"
+    sha256 "84897295c7d6b72e1eab29647b9593539c48acb53105af0a3f19675b896996cb"
   end
 
   def install
