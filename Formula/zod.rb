@@ -1,14 +1,9 @@
 class Zod < Formula
   desc "Modernized SDL3 build of the Zod Engine (remake of the 1996 RTS 'Z')"
   homepage "https://github.com/fenio/zod"
-  url "https://github.com/fenio/zod/archive/refs/tags/v0.4.10.tar.gz"
-  sha256 "e256fd03654645d59eb5d675d383b9afaa008763e9ac83fe3af08213f9fcda6f"
+  url "https://github.com/fenio/zod/archive/refs/tags/v0.4.11.tar.gz"
+  sha256 "a15f962fa2fb822e1252c6782d1b0e1a2fa42a533d8fa3b4a49382008e3f88ae"
   license "GPL-3.0-or-later"
-
-  bottle do
-    root_url "https://github.com/fenio/homebrew-tap/releases/download/bottle-zod-0.4.10"
-    sha256 arm64_sonoma: "e2358d18ffe84aded26dbf637d94774acfb601dd6f3802b03413a13205db80a1"
-  end
 
   depends_on "cmake" => :build
   depends_on "pkg-config" => :build
