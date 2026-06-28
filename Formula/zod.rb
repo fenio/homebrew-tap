@@ -2,7 +2,7 @@ class Zod < Formula
   desc "Modernized SDL3 build of the Zod Engine (remake of the 1996 RTS 'Z')"
   homepage "https://github.com/fenio/zod"
   url "https://github.com/fenio/zod/archive/refs/tags/v0.5.0.tar.gz"
-  sha256 "2f2334d2914e7ec60863627ae8cb1b619c2188cc515e3e6b950f9a7138a495af"
+  sha256 "9198319834f4e820491b56aca7cc11fd35a0a8402b3c0c4fd0942cdd8c502acb"
   license "GPL-3.0-or-later"
 
   depends_on "cmake" => :build
