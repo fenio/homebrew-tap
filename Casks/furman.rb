@@ -17,9 +17,8 @@ cask "furman" do
 
   app "Furman.app"
 
-  postflight do
-    system_command "/usr/bin/xattr",
-         args: ["-cr", "#{appdir}/Furman.app"]
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-cr", "{{appdir}}/Furman.app"]
   end
 
   zap trash: [
