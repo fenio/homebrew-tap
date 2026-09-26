@@ -1,27 +1,25 @@
 cask "furman" do
-  version "0.3.16"
+  version "0.3.17"
 
   on_arm do
-    sha256 "64c33abbb4b83a4307bdd3503e1345aac91ff1e76ca488906066297f2df0f3cb"
-
+    sha256 "0553bbe4f841001a12ff5caa5d95027f26c66fc6480fd0b0409f2d1dedb0cb06"
     url "https://github.com/fenio/furman/releases/download/v#{version}/Furman_#{version}_aarch64.dmg"
   end
-  on_intel do
-    sha256 "b6cb064b679e68e155930f38a151be0bc9f952cd18dbd8ae940c7acd7a1ab82d"
 
+  on_intel do
+    sha256 "3c3b85f33aa1610d7c654b7df9c6443f99dd72fd530bd815d96c58175494e779"
     url "https://github.com/fenio/furman/releases/download/v#{version}/Furman_#{version}_x64.dmg"
   end
 
   name "Furman"
-  desc "Dual-pane file manager"
+  desc "Dual-pane file manager for macOS"
   homepage "https://github.com/fenio/furman"
-
-  depends_on :macos
 
   app "Furman.app"
 
-  postflight_steps do
-    run "/usr/bin/xattr", args: ["-cr", "{{appdir}}/Furman.app"]
+  postflight do
+    system_command "/usr/bin/xattr",
+         args: ["-cr", "#{appdir}/Furman.app"]
   end
 
   zap trash: [
