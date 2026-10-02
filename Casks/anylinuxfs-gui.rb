@@ -1,30 +1,26 @@
 cask "anylinuxfs-gui" do
-  version "0.7.5"
-  sha256 "701118b5d04368a5153fa0f39d4fb78206509f409d6088797802efbab462fa3f"
+  version "0.8.0"
+  sha256 "360d484e96750814391d624914950e7563365eec955071d6aaff1b7a4da10bdf"
 
   url "https://github.com/fenio/anylinuxfs-gui/releases/download/v#{version}/anylinuxfs-gui_#{version}_aarch64.dmg"
   name "anylinuxfs GUI"
-  desc "GUI for mounting Linux filesystems"
+  desc "macOS GUI for anylinuxfs - mount Linux filesystems on macOS"
   homepage "https://github.com/fenio/anylinuxfs-gui"
 
-  depends_on :macos
   depends_on arch: :arm64
+
+  preflight do
+    system_command "/opt/homebrew/bin/brew",
+         args: ["tap", "nohajc/anylinuxfs"]
+    system_command "/opt/homebrew/bin/brew",
+         args: ["install", "nohajc/anylinuxfs/anylinuxfs"]
+  end
 
   app "anylinuxfs-gui.app"
 
-  preflight_steps do
-    run "{{HOMEBREW_BREW_FILE}}",
-        args:           ["tap", "nohajc/anylinuxfs"],
-        network_access: true,
-        writable_paths: ["{{HOMEBREW_PREFIX}}"]
-    run "{{HOMEBREW_BREW_FILE}}",
-        args:           ["install", "nohajc/anylinuxfs/anylinuxfs"],
-        network_access: true,
-        writable_paths: ["{{HOMEBREW_PREFIX}}"]
-  end
-
-  postflight_steps do
-    run "/usr/bin/xattr", args: ["-cr", "{{appdir}}/anylinuxfs-gui.app"]
+  postflight do
+    system_command "/usr/bin/xattr",
+         args: ["-cr", "#{appdir}/anylinuxfs-gui.app"]
   end
 
   zap trash: [
