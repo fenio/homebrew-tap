@@ -1,26 +1,26 @@
 class Terrarium < Formula
   desc "Terminal dashboard for managing tofu-controller Terraform and Flux Kustomization resources in Kubernetes"
   homepage "https://github.com/fenio/terrarium"
-  version "0.3.4"
+  version "0.3.5"
   license "GPL-3.0-or-later"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/fenio/terrarium/releases/download/v0.3.4/terrarium-aarch64-apple-darwin.tar.gz"
-      sha256 "74604572841aeb3a54637396a21c15b9d3e5f7dddf861c56638325f304e7616f"
+      url "https://github.com/fenio/terrarium/releases/download/v0.3.5/terrarium-aarch64-apple-darwin.tar.gz"
+      sha256 "45c6b7fee9e7dd47ce477bf6e7178fe9f9a37304075f916653dc7193ada37f3c"
     else
-      url "https://github.com/fenio/terrarium/releases/download/v0.3.4/terrarium-x86_64-apple-darwin.tar.gz"
-      sha256 "b47f7a335422a38f9e1328d23af4489e2042b5869449a1368f5aeea291981916"
+      url "https://github.com/fenio/terrarium/releases/download/v0.3.5/terrarium-x86_64-apple-darwin.tar.gz"
+      sha256 "2db7d1e274010b67266b5ce1d7d27754ca27f71ae5839f402cd0c3d010c589e5"
     end
   end
 
   on_linux do
     if Hardware::CPU.arm?
-      url "https://github.com/fenio/terrarium/releases/download/v0.3.4/terrarium-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "8041209adbfc2ff130d5f4747fadd1356df2a048acd5f1d79924534ac635af79"
+      url "https://github.com/fenio/terrarium/releases/download/v0.3.5/terrarium-aarch64-unknown-linux-gnu.tar.gz"
+      sha256 "7a4b370f7f772bf965865b8d5e8e4d919bd8ddf8e2c975fdef7962f468cebbf4"
     else
-      url "https://github.com/fenio/terrarium/releases/download/v0.3.4/terrarium-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "324670dd56e211995400e78e0b3f015210781b01971fa410d34f9083dd067c1c"
+      url "https://github.com/fenio/terrarium/releases/download/v0.3.5/terrarium-x86_64-unknown-linux-gnu.tar.gz"
+      sha256 "ef47feccaf3f95e8d48f04153169af18f93984b23be06da356294e1f3422417e"
     end
   end
 
