@@ -1,0 +1,87 @@
+name: GUI fresh install
+
+on:
+  pull_request:
+    paths:
+      - Casks/anylinuxfs-gui.rb
+      - Formula/nasty-top.rb
+      - .github/workflows/gui-fresh-install.yml
+  push:
+    branches: [main]
+    paths:
+      - Casks/anylinuxfs-gui.rb
+      - Formula/nasty-top.rb
+      - .github/workflows/gui-fresh-install.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  install:
+    runs-on: macos-26
+    timeout-minutes: 30
+    env:
+      HOMEBREW_NO_AUTO_UPDATE: '1'
+      HOMEBREW_NO_ANALYTICS: '1'
+      HOMEBREW_NO_INSTALL_CLEANUP: '1'
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Update Homebrew
+        run: brew update
+
+      - name: Prepare fresh trust and cache state
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(uname -m)" = arm64
+          test "$(brew --prefix)" = /opt/homebrew
+          if brew tap | grep -qx nohajc/anylinuxfs; then
+            echo 'Expected an untapped upstream repository' >&2
+            exit 1
+          fi
+          if brew list --formula | grep -qx anylinuxfs; then
+            echo 'Expected no installed anylinuxfs CLI' >&2
+            exit 1
+          fi
+          if brew list --cask | grep -qx anylinuxfs-gui; then
+            echo 'Expected no installed GUI' >&2
+            exit 1
+          fi
+          echo "HOMEBREW_USER_CONFIG_HOME=$RUNNER_TEMP/gui-brew-config" >> "$GITHUB_ENV"
+          echo "HOMEBREW_CACHE=$RUNNER_TEMP/gui-brew-cache" >> "$GITHUB_ENV"
+          mkdir -p "$RUNNER_TEMP/Applications"
+
+      - name: Tap and grant package-scoped trust
+        shell: bash
+        run: |
+          set -euo pipefail
+          brew --version
+          brew tap nohajc/anylinuxfs
+          # Test the checked-out cask, not the version currently published on main.
+          brew tap fenio/tap "$GITHUB_WORKSPACE"
+          brew trust --formula nohajc/anylinuxfs/anylinuxfs
+          brew trust --cask fenio/tap/anylinuxfs-gui
+
+      - name: Install GUI and automatic CLI dependency
+        run: brew install --cask --appdir="$RUNNER_TEMP/Applications" fenio/tap/anylinuxfs-gui
+
+      - name: Verify installed artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          brew list --versions nohajc/anylinuxfs/anylinuxfs
+          brew list --cask --versions fenio/tap/anylinuxfs-gui
+          anylinuxfs --version
+          app="$RUNNER_TEMP/Applications/anylinuxfs-gui.app"
+          test -x "$app/Contents/MacOS/anylinuxfs-gui"
+          /usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$app/Contents/Info.plist"
+          if /usr/bin/xattr -p com.apple.quarantine "$app" 2>/dev/null; then
+            echo 'Quarantine removal did not complete' >&2
+            exit 1
+          fi
+
+      - name: Homebrew diagnostics on failure
+        if: failure()
+        run: brew config
