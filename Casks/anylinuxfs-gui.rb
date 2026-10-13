@@ -8,20 +8,10 @@ cask "anylinuxfs-gui" do
   homepage "https://github.com/fenio/anylinuxfs-gui"
 
   depends_on arch: :arm64
+  depends_on formula: "nohajc/anylinuxfs/anylinuxfs"
   depends_on :macos
 
   app "anylinuxfs-gui.app"
-
-  preflight_steps do
-    run "{{HOMEBREW_BREW_FILE}}",
-        args:           ["tap", "nohajc/anylinuxfs"],
-        network_access: true,
-        writable_paths: ["{{HOMEBREW_PREFIX}}"]
-    run "{{HOMEBREW_BREW_FILE}}",
-        args:           ["install", "nohajc/anylinuxfs/anylinuxfs"],
-        network_access: true,
-        writable_paths: ["{{HOMEBREW_PREFIX}}"]
-  end
 
   postflight_steps do
     run "/usr/bin/xattr", args: ["-cr", "{{appdir}}/anylinuxfs-gui.app"]
