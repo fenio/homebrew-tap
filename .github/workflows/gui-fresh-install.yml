@@ -25,6 +25,7 @@ jobs:
       HOMEBREW_NO_AUTO_UPDATE: '1'
       HOMEBREW_NO_ANALYTICS: '1'
       HOMEBREW_NO_INSTALL_CLEANUP: '1'
+      HOMEBREW_CASK_OPTS: '--quarantine'
     steps:
       - uses: actions/checkout@v7
 
@@ -72,11 +73,13 @@ jobs:
         run: |
           set -euo pipefail
           brew list --versions nohajc/anylinuxfs/anylinuxfs
-          brew list --cask --versions fenio/tap/anylinuxfs-gui
+          brew list --cask --versions anylinuxfs-gui
           anylinuxfs --version
           app="$RUNNER_TEMP/Applications/anylinuxfs-gui.app"
           test -x "$app/Contents/MacOS/anylinuxfs-gui"
-          /usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$app/Contents/Info.plist"
+          expected=$(brew info --json=v2 --cask fenio/tap/anylinuxfs-gui | /usr/bin/ruby -rjson -e 'puts JSON.parse(STDIN.read).fetch("casks").first.fetch("version")')
+          actual=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$app/Contents/Info.plist")
+          test "$actual" = "$expected"
           if /usr/bin/xattr -p com.apple.quarantine "$app" 2>/dev/null; then
             echo 'Quarantine removal did not complete' >&2
             exit 1
