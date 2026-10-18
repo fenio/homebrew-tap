@@ -1,13 +1,17 @@
 name: bottle
 
-# Build Homebrew bottles (prebuilt binaries) for the zod formula and publish
-# them so `brew install fenio/tap/zod` downloads a binary instead of compiling.
+# Build Homebrew bottles (prebuilt binaries) for a formula and publish them so
+# `brew install fenio/tap/<formula>` downloads a binary instead of compiling.
 # Run manually after bumping the formula to a new version.
 on:
   workflow_dispatch:
     inputs:
+      formula:
+        description: "Formula to bottle (e.g. zod, radio-caster)"
+        required: true
+        default: zod
       version:
-        description: "zod version to bottle (must match the formula, e.g. 1.0.0)"
+        description: "Version to bottle (must match the formula, e.g. 1.0.0)"
         required: true
 
 permissions:
@@ -15,7 +19,8 @@ permissions:
 
 env:
   TAP: ${{ github.repository_owner }}/tap
-  REL: bottle-zod-${{ inputs.version }}
+  FORMULA: ${{ inputs.formula }}
+  REL: bottle-${{ inputs.formula }}-${{ inputs.version }}
 
 jobs:
   setup:
@@ -27,8 +32,8 @@ jobs:
         run: |
           gh release view "$REL" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 || \
           gh release create "$REL" --repo "$GITHUB_REPOSITORY" \
-            --title "zod ${{ inputs.version }} bottles" \
-            --notes "Homebrew bottles for zod ${{ inputs.version }}."
+            --title "${{ inputs.formula }} ${{ inputs.version }} bottles" \
+            --notes "Homebrew bottles for ${{ inputs.formula }} ${{ inputs.version }}."
 
   build:
     needs: setup
@@ -50,8 +55,8 @@ jobs:
           set -eux
           # If this platform's bottle is already published, do NOT rebuild it:
           # bottles aren't byte-reproducible, and re-uploading would invalidate
-          # the sha256 already merged into the formula (this broke 0.3.1 once).
-          ASSET="zod-${{ inputs.version }}.${{ matrix.tag }}.bottle.tar.gz"
+          # the sha256 already merged into the formula (this broke zod 0.3.1 once).
+          ASSET="${FORMULA}-${{ inputs.version }}.${{ matrix.tag }}.bottle.tar.gz"
           if gh release view "$REL" --repo "$GITHUB_REPOSITORY" --json assets -q '.assets[].name' | grep -qx "$ASSET"; then
             echo "$ASSET already published; skipping rebuild so its sha stays valid"
             touch "skipped-${{ matrix.tag }}.txt"
@@ -61,13 +66,13 @@ jobs:
           brew tap "$TAP"
           # Recent Homebrew refuses to load formulae from third-party taps until
           # the tap is trusted; mark ours trusted (tolerant of older brew).
-          brew trust "$TAP" || brew trust --formula "$TAP/zod" || true
+          brew trust "$TAP" || brew trust --formula "$TAP/$FORMULA" || true
           ROOT_URL="https://github.com/${GITHUB_REPOSITORY}/releases/download/${REL}"
-          brew install --build-bottle "$TAP/zod"
-          brew bottle --json --no-rebuild --root-url="$ROOT_URL" "$TAP/zod"
+          brew install --build-bottle "$TAP/$FORMULA"
+          brew bottle --json --no-rebuild --root-url="$ROOT_URL" "$TAP/$FORMULA"
           # brew writes filenames with a double dash; the canonical name uses one
-          for f in zod--*.bottle.tar.gz; do mv "$f" "${f/--/-}"; done
-          gh release upload "$REL" zod-*.bottle.tar.gz --repo "$GITHUB_REPOSITORY" --clobber
+          for f in "$FORMULA"--*.bottle.tar.gz; do mv "$f" "${f/--/-}"; done
+          gh release upload "$REL" "$FORMULA"-*.bottle.tar.gz --repo "$GITHUB_REPOSITORY" --clobber
       - uses: actions/upload-artifact@v4
         with:
           name: bottle-json-${{ matrix.os }}
@@ -96,20 +101,20 @@ jobs:
           brew update
           brew tap "$TAP"
           # Trust the third-party tap so `brew bottle --merge` can load the formula.
-          brew trust "$TAP" || brew trust --formula "$TAP/zod" || true
+          brew trust "$TAP" || brew trust --formula "$TAP/$FORMULA" || true
           brew bottle --merge --write --no-commit bottles/*.bottle.json
           TAP_DIR="$(brew --repository "$TAP")"
           cd "$TAP_DIR"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-          git add Formula/zod.rb
+          git add "Formula/$FORMULA.rb"
           # A re-run after the bottle block was already merged (e.g. by hand,
           # or validating a workflow fix) produces no diff; don't fail on
           # "nothing to commit".
           if git diff --cached --quiet; then
             echo "bottle block already up to date; nothing to push"
           else
-            git commit -m "zod ${{ inputs.version }}: add bottles"
+            git commit -m "${{ inputs.formula }} ${{ inputs.version }}: add bottles"
             git push origin HEAD:${{ github.ref_name }}
           fi

@@ -14,6 +14,7 @@ brew tap fenio/tap
 | --- | --- | --- |
 | [furman-mcp](https://github.com/fenio/furman) | MCP server for S3 and SFTP operations | `brew install fenio/tap/furman-mcp` |
 | [nasty-top](https://github.com/nasty-project/nasty-top) | Top-like TUI for bcachefs filesystems (Linux) | `brew install fenio/tap/nasty-top` |
+| [radio-caster](https://github.com/fenio/radio-caster) | Cast internet radio to a Chromecast from the macOS menu bar | `brew install fenio/tap/radio-caster` |
 | [terrarium](https://github.com/fenio/terrarium) | Kubernetes terminal dashboard for tofu-controller and Flux resources | `brew install fenio/tap/terrarium` |
 | [wharf](https://github.com/fenio/wharf) | Windows 11 ARM VMs using QEMU and HVF (Apple Silicon) | `brew install fenio/tap/wharf` |
 | [zod](https://github.com/fenio/zod) | SDL3 build of the Zod Engine | `brew install fenio/tap/zod` |
