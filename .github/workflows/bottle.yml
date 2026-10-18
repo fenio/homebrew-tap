@@ -42,10 +42,11 @@ jobs:
       matrix:
         # Apple Silicon only — GitHub's free Intel (macos-13) runners are
         # scarce/deprecated and queue indefinitely. Add more arm64 macOS
-        # versions here (e.g. macos-15) for wider bottle coverage.
+        # versions here (e.g. macos-26) for wider bottle coverage. macos-14 (Sonoma)
+        # is Homebrew Tier 3 now: it has no dependency bottles and refuses to build.
         include:
-          - os: macos-14
-            tag: arm64_sonoma
+          - os: macos-15
+            tag: arm64_sequoia
     runs-on: ${{ matrix.os }}
     steps:
       - name: Build the bottle
@@ -82,7 +83,7 @@ jobs:
 
   publish:
     needs: build
-    runs-on: macos-14
+    runs-on: macos-15
     steps:
       - uses: actions/download-artifact@v4
         with:
