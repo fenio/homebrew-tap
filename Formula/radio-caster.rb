@@ -4,13 +4,8 @@ class RadioCaster < Formula
   desc "Cast internet radio to a Chromecast from the macOS menu bar or command-line"
   homepage "https://github.com/fenio/radio-caster"
   url "https://github.com/fenio/radio-caster/archive/refs/tags/v0.1.0.tar.gz"
-  sha256 "d920672c94a15d8f4290d248273aa99fea4ab98c27786e51d9670df857e81ab0"
+  sha256 "31efa3043fa093f1ed5b5344b1be4177eb974a500e2420de13e6d28db07a8a7c"
   license "MIT"
-
-  bottle do
-    root_url "https://github.com/fenio/homebrew-tap/releases/download/bottle-radio-caster-0.1.0"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "bf5092be500360d552ecf203ab9089d998d4f07f075f5521967f58596b4914ef"
-  end
 
   depends_on :macos
   depends_on "python@3.13"
@@ -58,6 +53,11 @@ class RadioCaster < Formula
   resource "pyobjc-framework-cocoa" do
     url "https://files.pythonhosted.org/packages/75/76/49c6da2c6a831020b4854ba20079d5a1030474bffc776b7b73c2eeff8c15/pyobjc_framework_cocoa-12.2.2.tar.gz"
     sha256 "c96c0ef69a71afbbb0e6a7d594b455c5fe47d62e0db376ee7a2b4b828c16ace9"
+  end
+
+  resource "pyobjc-framework-webkit" do
+    url "https://files.pythonhosted.org/packages/6f/1f/766e338197f7051c25f23cb0d350caa88234b31c3a759127f2cbb67f3376/pyobjc_framework_webkit-12.2.2.tar.gz"
+    sha256 "e5588df2a73b377b59a994cc2a78b467e4341f4e4d28b52e8671e21a2811d3c1"
   end
 
   resource "requests" do
