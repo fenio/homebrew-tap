@@ -1,6 +1,6 @@
 cask "radio-caster-app" do
   version "0.1.0"
-  sha256 "10e30fcaa55cd6b88ffd4580ae2db00473113c96b0bebb11948c49df79b0dc40"
+  sha256 "0b2d6a9176c19979f381cdf302cfe9f4cb4bc72539a48044f735892fc2e8edc8"
 
   url "https://github.com/fenio/radio-caster/releases/download/v#{version}/Radio-Caster-#{version}.zip"
   name "Radio Caster"
