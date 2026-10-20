@@ -25,6 +25,7 @@ brew tap fenio/tap
 | --- | --- | --- |
 | [anylinuxfs-gui](https://github.com/fenio/anylinuxfs-gui) | GUI for mounting Linux filesystems (Apple Silicon) | `brew install --cask fenio/tap/anylinuxfs-gui` |
 | [furman](https://github.com/fenio/furman) | Dual-pane file manager for macOS | `brew install --cask fenio/tap/furman` |
+| [greebar](https://github.com/fenio/greebar) | Menu bar controller for Gree air conditioners | `brew install --cask fenio/tap/greebar` |
 | [radio-caster-app](https://github.com/fenio/radio-caster) | Radio Caster.app for Spotlight; installs the radio-caster formula | `brew install --cask fenio/tap/radio-caster-app` |
 
 ### anylinuxfs GUI: fresh installation
