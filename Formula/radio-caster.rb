@@ -4,13 +4,8 @@ class RadioCaster < Formula
   desc "Cast internet radio to a Chromecast from the macOS menu bar or command-line"
   homepage "https://github.com/fenio/radio-caster"
   url "https://github.com/fenio/radio-caster/archive/refs/tags/v0.1.0.tar.gz"
-  sha256 "d7969f885c404baae1e328d8407590c0b19da4afffa0aa9b5fb06ffd3c07a1db"
+  sha256 "264b2540c4d8417d607fcf14f8f839877cbdf7f7b7a78167c3ef529c6b49fe76"
   license "MIT"
-
-  bottle do
-    root_url "https://github.com/fenio/homebrew-tap/releases/download/bottle-radio-caster-0.1.0"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e521870a982665b51106420b4464d9d6d60f655d83f1a213972be52359bfa55c"
-  end
 
   depends_on :macos
   depends_on "python@3.13"
@@ -102,6 +97,9 @@ class RadioCaster < Formula
     <<~EOS
       Start the menu bar app now and at every login:
         brew services start radio-caster
+
+      For Radio Caster in Spotlight and Applications:
+        brew install --cask fenio/tap/radio-caster-app
 
       Or use the command line:
         radio-caster search "jazz"
