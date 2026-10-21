@@ -7,6 +7,11 @@ class RadioCaster < Formula
   sha256 "ede3f4ceb47b3a174f2840a7c90d6f58b2faf9d6694c4a7bc611009ec6a06594"
   license "MIT"
 
+  bottle do
+    root_url "https://github.com/fenio/homebrew-tap/releases/download/bottle-radio-caster-0.1.0"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "bc98d454d50b41978f497b129989ec7c5ce084c7e1c01bd00af7d34b7ff27fd0"
+  end
+
   depends_on :macos
   depends_on "python@3.14"
 
