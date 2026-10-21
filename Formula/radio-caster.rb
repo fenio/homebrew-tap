@@ -7,13 +7,8 @@ class RadioCaster < Formula
   sha256 "ede3f4ceb47b3a174f2840a7c90d6f58b2faf9d6694c4a7bc611009ec6a06594"
   license "MIT"
 
-  bottle do
-    root_url "https://github.com/fenio/homebrew-tap/releases/download/bottle-radio-caster-0.1.0"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "a32fd81655b5951e599199a9ee751971a9b8b445308a49591004961cec30e689"
-  end
-
   depends_on :macos
-  depends_on "python@3.15"
+  depends_on "python@3.14"
 
   resource "casttube" do
     url "https://files.pythonhosted.org/packages/78/54/f7e80d701c587940cf1c871fb6327b4a2682df4287896fbf9400cd0bbf21/casttube-0.2.1.tar.gz"
