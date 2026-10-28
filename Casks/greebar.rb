@@ -1,6 +1,6 @@
 cask "greebar" do
-  version "0.1.1"
-  sha256 "f7e0d7fd455f55b36ff8d64bc495529af686622c7a090f8f93b3acb71c0f926a"
+  version "0.1.2"
+  sha256 "00825063c727d261558f4ebd1a9cd284dde850ab66955e8cec429d0bb68d1b97"
 
   url "https://github.com/fenio/greebar/releases/download/v#{version}/GreeBar-#{version}.zip"
   name "GreeBar"
