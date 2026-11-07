@@ -3,14 +3,9 @@ class RadioCaster < Formula
 
   desc "Cast internet radio to a Chromecast from the macOS menu bar or command-line"
   homepage "https://github.com/fenio/radio-caster"
-  url "https://github.com/fenio/radio-caster/archive/refs/tags/v0.1.0.tar.gz"
-  sha256 "e2ec96b51d4997dc2d0b6b39f60229549f28f9d7e37049e7b43dda93cff296b2"
+  url "https://github.com/fenio/radio-caster/archive/refs/tags/v0.1.1.tar.gz"
+  sha256 "23b2bb34d072701d5469b4dccb5d0d410e6d9e2c8ff635f1925ce75a13052b3e"
   license "MIT"
-
-  bottle do
-    root_url "https://github.com/fenio/homebrew-tap/releases/download/bottle-radio-caster-0.1.0"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2962c6b3057d3df650e557b4dee915e7b1d86b0620fa179049c97bf003f8ea73"
-  end
 
   depends_on :macos
   depends_on "python@3.14"
