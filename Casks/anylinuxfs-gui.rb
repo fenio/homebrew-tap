@@ -1,6 +1,6 @@
 cask "anylinuxfs-gui" do
-  version "0.8.2"
-  sha256 "3715bfe67d935f6f763ff37de6d9ebcd8f0c368aedceb1d7ef90b0e43e44ede5"
+  version "0.8.3"
+  sha256 "74f96ee058c14a720471209cd3a25eb1d56fca04eaca9835a8d1ac833d89576e"
 
   url "https://github.com/fenio/anylinuxfs-gui/releases/download/v#{version}/anylinuxfs-gui_#{version}_aarch64.dmg"
   name "anylinuxfs GUI"
